@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Disorder Detection App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 2.5em;
+        }
+	.nav-link {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .nav-link:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            text-align: center;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        form {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .flex-column {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        h2 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: #007BFF;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1em;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .slider-container {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .slider-container input[type="range"] {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .slider-value {
+            font-size: 1em;
+            font-weight: bold;
+            text-align: right;
+            width: 40px;
+            color: #007BFF;
+        }
+
+        button {
+            width: 100%;
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            border: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sleep Disorder Detection App</h1>
+    <p>This app detects sleep disorders based on input features. 🛌</p>
+    <form action="/predict" method="post">
+        <div class="flex-container">
+            <!-- Input Details -->
+            <section class="flex-column">
+                <h2>📝 Input Details</h2>
+                <label for="Age">Age:</label>
+                <input type="number" id="Age" name="Age" min="0" step="1" placeholder="e.g., 30">
+                
+                <label for="Gender">Gender:</label>
+                <select id="Gender" name="Gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+
+                <label for="Occupation">Occupation:</label>
+                <select id="Occupation" name="Occupation">
+                    <option value="Software Engineer">Software Engineer</option>
+                    <option value="Doctor">Doctor</option>
+                    <option value="Sales Representative">Sales Representative</option>
+                    <option value="Teacher">Teacher</option>
+                    <option value="Nurse">Nurse</option>
+                    <option value="Engineer">Engineer</option>
+                    <option value="Accountant">Accountant</option>
+                    <option value="Scientist">Scientist</option>
+                    <option value="Lawyer">Lawyer</option>
+                    <option value="Manager">Manager</option>
+                </select>
+
+                <label for="BMI Category">BMI Category:</label>
+                <select id="BMI Category" name="BMI Category">
+                    <option value="Overweight">Overweight</option>
+                    <option value="Normal">Normal</option>
+                    <option value="Obese">Obese</option>
+                    <option value="Normal Weight">Normal Weight</option>
+                </select>
+            </section>
+
+            <!-- Sleep Details -->
+            <section class="flex-column">
+                <h2>💤 Sleep Details</h2>
+                <label for="Sleep Duration">Sleep Duration (hours):</label>
+                <div class="slider-container">
+                    <input type="range" id="Sleep Duration" name="Sleep Duration" min="0" max="12" step="0.1" value="7" oninput="updateSliderValue('sleep-duration-value', this.value)">
+                    <div id="sleep-duration-value" class="slider-value">7</div>
+                </div>
+
+                <label for="Quality of Sleep">Quality of Sleep:</label>
+                <div class="slider-container">
+                    <input type="range" id="Quality of Sleep" name="Quality of Sleep" min="0" max="10" step="1" value="5" oninput="updateSliderValue('quality-of-sleep-value', this.value)">
+                    <div id="quality-of-sleep-value" class="slider-value">5</div>
+                </div>
+
+                <label for="Physical Activity Level">Physical Activity Level:</label>
+                <div class="slider-container">
+                    <input type="range" id="Physical Activity Level" name="Physical Activity Level" min="0" max="100" step="1" value="50" oninput="updateSliderValue('physical-activity-level-value', this.value)">
+                    <div id="physical-activity-level-value" class="slider-value">50</div>
+                </div>
+            </section>
+
+            <!-- Health Details -->
+            <section class="flex-column">
+                <h2>❤️ Health Details</h2>
+                <label for="Stress Level">Stress Level:</label>
+                <div class="slider-container">
+                    <input type="range" id="Stress Level" name="Stress Level" min="0" max="10" step="1" value="5" oninput="updateSliderValue('stress-level-value', this.value)">
+                    <div id="stress-level-value" class="slider-value">5</div>
+                </div>
+
+                <label for="Heart Rate">Heart Rate:</label>
+                <input type="number" id="Heart Rate" name="Heart Rate" min="40" max="200" step="1" placeholder="e.g., 75">
+
+                <label for="Daily Steps">Daily Steps:</label>
+                <input type="number" id="Daily Steps" name="Daily Steps" min="0" step="1" placeholder="e.g., 10000">
+
+                <label for="Blood Pressure">Blood Pressure:</label>
+                <select id="Blood Pressure" name="Blood Pressure">
+                    <option value="126/83">126/83</option>
+                    <option value="125/80">125/80</option>
+                    <option value="140/90">140/90</option>
+                    <option value="120/80">120/80</option>
+                    <option value="132/87">132/87</option>
+                    <option value="130/86">130/86</option>
+                    <option value="117/76">117/76</option>
+                    <option value="118/76">118/76</option>
+                    <option value="128/85">128/85</option>
+                    <option value="131/86">131/86</option>
+                    <option value="128/84">128/84</option>
+                    <option value="115/75">115/75</option>
+                    <option value="135/88">135/88</option>
+                    <option value="129/84">129/84</option>
+                    <option value="130/85">130/85</option>
+                    <option value="115/78">115/78</option>
+                    <option value="119/77">119/77</option>
+                    <option value="121/79">121/79</option>
+                    <option value="125/82">125/82</option>
+                    <option value="135/90">135/90</option>
+                    <option value="122/80">122/80</option>
+                    <option value="142/92">142/92</option>
+                    <option value="140/95">140/95</option>
+                    <option value="139/91">139/91</option>
+                    <option value="118/75">118/75</option>
+                </select>
+            </section>
+        </div>
+        <button type="submit">Predict</button>
+  <!-- Navigation link to graphs.html -->
+        <a href="/graphs" class="nav-link">Visual Analysis</a>
+
+    </form>
+
+    <script>
+        // Update slider value dynamically
+        function updateSliderValue(sliderId, value) {
+            document.getElementById(sliderId).textContent = value;
+        }
+    </script>
+</body>
+</html>

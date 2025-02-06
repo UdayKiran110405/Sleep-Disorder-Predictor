@@ -1,0 +1,77 @@
+from flask import Flask, request, render_template
+import pickle
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+
+app = Flask(__name__)
+
+# Load the trained model
+with open("best_sleep_disorder_model.pkl", "rb") as file:
+    model = pickle.load(file)
+
+# Load the dataset for preprocessing
+dataset = pd.read_csv("Sleep_health_and_lifestyle_dataset.csv")
+
+# Preprocessing configurations
+categorical_columns = ['Gender', 'Occupation', 'BMI Category', 'Blood Pressure']
+numerical_columns = ['Age', 'Sleep Duration', 'Physical Activity Level', 'Stress Level', 'Heart Rate', 'Daily Steps']
+encoders = {col: LabelEncoder() for col in categorical_columns}
+scaler = StandardScaler()
+
+# Fit encoders and scaler based on dataset
+for col in categorical_columns:
+    dataset[col] = encoders[col].fit_transform(dataset[col])
+scaler.fit(dataset[numerical_columns])
+
+@app.route('/')
+def index():
+    # Pass dropdown options to the template
+    return render_template(
+        'index.html',
+        gender_options=dataset['Gender'].unique(),
+        occupation_options=dataset['Occupation'].unique(),
+        bmi_options=dataset['BMI Category'].unique(),
+        bp_options=dataset['Blood Pressure'].unique(),
+    )
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    # Get input data from form
+    input_data = request.form
+
+    # Prepare input as a DataFrame
+    user_data = pd.DataFrame({
+        'Gender': [input_data['Gender']],
+        'Occupation': [input_data['Occupation']],
+        'BMI Category': [input_data['BMI_Category']],
+        'Blood Pressure': [input_data['Blood_Pressure']],
+        'Age': [float(input_data['Age'])],
+        'Sleep Duration': [float(input_data['Sleep_Duration'])],
+        'Physical Activity Level': [float(input_data['Physical_Activity_Level'])],
+        'Stress Level': [float(input_data['Stress_Level'])],
+        'Heart Rate': [float(input_data['Heart_Rate'])],
+        'Daily Steps': [float(input_data['Daily_Steps'])]
+    })
+
+    # Encode categorical columns
+    for col in categorical_columns:
+        user_data[col] = encoders[col].transform(user_data[col])
+
+    # Normalize numerical columns
+    user_data[numerical_columns] = scaler.transform(user_data[numerical_columns])
+
+    # Make prediction
+    prediction = model.predict(user_data)[0]
+
+    # Map prediction back to original class
+    sleep_disorder_map = {0: "None", 1: "Sleep Apnea", 2: "Insomnia"}
+    result = sleep_disorder_map[prediction]
+
+    return render_template('index.html', prediction=f"Predicted Sleep Disorder: {result}",
+                           gender_options=dataset['Gender'].unique(),
+                           occupation_options=dataset['Occupation'].unique(),
+                           bmi_options=dataset['BMI Category'].unique(),
+                           bp_options=dataset['Blood Pressure'].unique())
+
+if __name__ == '__main__':
+    app.run(debug=True)

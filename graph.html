@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Graphs</title>
+    <style>
+        /* CSS for styling the page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container{
+            width: 50vw;
+            margin: auto;
+        }
+        .graph-container {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .graph-container img {
+            max-width: 100%;
+            display: block;
+            padding: 20px;
+        }
+        .graph-title {
+            background-color: #f0f0f0;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Each graph is placed inside a div with class "graph-container" -->
+        <center>
+            <div class="graph-container">
+                <div class="graph-title">Graph 1: Distribution of Gender</div>
+                <img src="../graphs/1.png" alt="Graph 1" width="500px">
+            </div>
+            <div class="graph-container">
+                <div class="graph-title">Graph 2: Distribution of Sleep Disorders</div>
+                <img src="../graphs/2.png" alt="Graph 2" >
+            </div>
+            <div class="graph-container">
+                <div class="graph-title">Graph 3: Sleep Distribution by Occupation</div>
+                <img src="../graphs/3.png" alt="Graph 3" width="500px">
+            </div>
+            <div class="graph-container">
+                <div class="graph-title">Graph 4: High Bloodpressure Distribution Across Occupations</div>
+                <img src="../graphs/4.png" alt="Graph 4" width="500px">
+            </div>
+            <div class="graph-container">
+                <div class="graph-title">Graph 5: Quality of sleep vs duration</div>
+                <img src="../graphs/5.png" alt="Graph 5" width="500px">
+            </div>
+            <div class="graph-container">
+                <div class="graph-title">Graph 6: Count of Sleep Disorder by gender</div>
+                <img src="../graphs/6.png" alt="Graph 6" width="800px">
+            </div>
+            <div class="graph-container">
+                <div class="graph-title">Graph 7: Sleep Duration by Age Group</div>
+                <img src="../graphs/7.png" alt="Graph 7">
+            </div>
+        </center>
+    </div>
+</body>
+</html>

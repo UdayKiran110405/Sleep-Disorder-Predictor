@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Analysis of the Dataset</title>
+    <style>
+        /* CSS for styling the page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        .container{
+            margin: auto;
+            width: 60vw;
+            padding: 0 20px;
+        }
+        .graph-container {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .graph-container img {
+            max-width: 100%;
+            display: block;
+            padding: 20px;
+        }
+        .graph-title {
+            background-color: #f0f0f0;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+        .back-button {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .back-button a {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .back-button a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <div class="container">
+            <h1 style="text-align: center; color: #333;">Visual Analysis of the Dataset</h1>
+            <!-- Each graph is placed inside a div with class "graph-container" -->
+            <div class="graph-container">
+                <div class="graph-title">Graph 1: Distribution of Gender</div>
+                <img src="{{ url_for('static', filename='graphs/1.png') }}" alt="Graph 1" width="500px">
+            </div>
+            <div class="graph-container">
+                <div class="graph-title">Graph 2: Distribution of Sleep Disorders</div>
+                <img src="{{ url_for('static', filename='graphs/2.png') }}" alt="Graph 2" >
+            </div>
+            <div class="graph-container">
+                <div class="graph-title">Graph 3: Sleep Distribution by Occupation</div>
+                <img src="{{ url_for('static', filename='graphs/on.png') }}" alt="Graph 3" width="500px">
+            </div>
+            <div class="graph-container">
+                <div class="graph-title">Graph 4: High Blood Pressure Distribution Across Occupations</div>
+                <img src="{{ url_for('static', filename='graphs/4.png') }}" alt="Graph 4" width="500px">
+            </div>
+            <div class="graph-container">
+                <div class="graph-title">Graph 5: Quality of Sleep vs Duration</div>
+                <img src="{{ url_for('static', filename='graphs/5.png') }}" alt="Graph 5" width="500px">
+            </div>
+            <div class="graph-container">
+                <div class="graph-title">Graph 6: Count of Sleep Disorders by Gender</div>
+                <img src="{{ url_for('static', filename='graphs/6.png') }}" alt="Graph 6" width="800px">
+            </div>
+            <div class="graph-container">
+                <div class="graph-title">Graph 7: Sleep Duration by Age Group</div>
+                <img src="{{ url_for('static', filename='graphs/7.png') }}" alt="Graph 7">
+            </div>
+            <!-- Back button for navigation -->
+            <div class="back-button">
+                <a href="/">Back to Home</a>
+            </div>
+        </div>
+    </center>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Disorder Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Predict Sleep Disorder</h1>
+    <form action="/predict" method="post">
+        <!-- Gender -->
+        <label for="Gender">Gender</label>
+        <select id="Gender" name="Gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+        <!-- Age -->
+        <label for="Age">Age</label>
+        <input type="number" id="Age" name="Age" min="0" step="1">
+
+        <!-- Occupation -->
+        <label for="Occupation">Occupation</label>
+        <select id="Occupation" name="Occupation">
+            <option value="Software Engineer">Software Engineer</option>
+            <option value="Doctor">Doctor</option>
+            <option value="Sales Representative">Sales Representative</option>
+            <option value="Teacher">Teacher</option>
+            <option value="Nurse">Nurse</option>
+            <option value="Engineer">Engineer</option>
+            <option value="Accountant">Accountant</option>
+            <option value="Scientist">Scientist</option>
+            <option value="Lawyer">Lawyer</option>
+            <option value="Salesperson">Salesperson</option>
+            <option value="Manager">Manager</option>
+        </select>
+
+        <!-- Sleep Duration -->
+        <label for="Sleep Duration">Sleep Duration (hours)</label>
+        <input type="range" id="Sleep Duration" name="Sleep Duration" min="0" max="12" step="0.1">
+
+        <!-- Quality of Sleep -->
+        <label for="Quality of Sleep">Quality of Sleep</label>
+        <input type="range" id="Quality of Sleep" name="Quality of Sleep" min="0" max="10" step="1">
+
+        <!-- Physical Activity Level -->
+        <label for="Physical Activity Level">Physical Activity Level</label>
+        <input type="range" id="Physical Activity Level" name="Physical Activity Level" min="0" max="100" step="1">
+
+        <!-- Stress Level -->
+        <label for="Stress Level">Stress Level</label>
+        <input type="range" id="Stress Level" name="Stress Level" min="0" max="10" step="1">
+
+        <!-- BMI Category -->
+        <label for="BMI Category">BMI Category</label>
+        <select id="BMI Category" name="BMI Category">
+            <option value="Overweight">Overweight</option>
+            <option value="Normal">Normal</option>
+            <option value="Obese">Obese</option>
+            <option value="Normal Weight">Normal Weight</option>
+        </select>
+
+        <!-- Blood Pressure -->
+        <label for="Blood Pressure">Blood Pressure</label>
+        <select id="Blood Pressure" name="Blood Pressure">
+            <option value="126/83">126/83</option>
+            <option value="125/80">125/80</option>
+            <option value="140/90">140/90</option>
+            <option value="120/80">120/80</option>
+            <option value="132/87">132/87</option>
+            <option value="130/86">130/86</option>
+            <option value="117/76">117/76</option>
+            <option value="118/76">118/76</option>
+            <option value="128/85">128/85</option>
+            <option value="131/86">131/86</option>
+            <option value="128/84">128/84</option>
+            <option value="115/75">115/75</option>
+            <option value="135/88">135/88</option>
+            <option value="129/84">129/84</option>
+            <option value="130/85">130/85</option>
+            <option value="115/78">115/78</option>
+            <option value="119/77">119/77</option>
+            <option value="121/79">121/79</option>
+            <option value="125/82">125/82</option>
+            <option value="135/90">135/90</option>
+            <option value="122/80">122/80</option>
+            <option value="142/92">142/92</option>
+            <option value="140/95">140/95</option>
+            <option value="139/91">139/91</option>
+            <option value="118/75">118/75</option>
+        </select>
+
+        <!-- Heart Rate -->
+        <label for="Heart Rate">Heart Rate</label>
+        <input type="number" id="Heart Rate" name="Heart Rate" min="0" step="1">
+
+        <!-- Daily Steps -->
+        <label for="Daily Steps">Daily Steps</label>
+        <input type="number" id="Daily Steps" name="Daily Steps" min="0" step="1">
+
+        <!-- Submit Button -->
+        <button type="submit">Predict</button>
+    </form>
+ {% if prediction %}
+        <div class="prediction">
+            <p>Prediction: {{ prediction }}</p>
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="error">
+            <p>Error: {{ error }}</p>
+        </div>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Disorder Prediction Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #007BFF;
+        }
+        .result {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+        .result p {
+            font-weight: bold;
+        }
+        .tips {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #555;
+            text-align: left;
+        }
+        .back-btn {
+            margin-top: 30px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sleep Disorder Prediction Result</h1>
+
+        <div class="result">
+            <p>Prediction Result: 
+                {% if prediction == 1 %}
+                    <strong>Sleep Disorder Detected</strong>
+                {% else %}
+                    <strong>No Sleep Disorder Detected</strong>
+                {% endif %}
+            </p>
+        </div>
+
+        <!-- Display disorder name and tips -->
+        {% if prediction == 1 %}
+        <div class="tips">
+            <h3>Disorder: {{ disorder_name }}</h3>
+            <p><strong>Tips to improve your sleep:</strong></p>
+            <ul>
+                <li>Maintain a consistent sleep schedule.</li>
+                <li>Limit caffeine and alcohol intake, especially before bedtime.</li>
+                <li>Engage in regular physical activity during the day.</li>
+                <li>Create a calming bedtime routine (e.g., reading, meditating).</li>
+                <li>Ensure your sleep environment is comfortable and quiet.</li>
+            </ul>
+        </div>
+        {% endif %}
+
+        <a href="/" class="back-btn">Go Back</a>
+    </div>
+</body>
+</html>
